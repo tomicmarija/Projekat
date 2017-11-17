@@ -1,0 +1,8 @@
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\obj\Debug\SyslogServer.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
