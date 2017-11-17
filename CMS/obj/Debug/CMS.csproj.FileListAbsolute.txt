@@ -3,3 +3,10 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\bin\Debug\CMS.pdb
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\obj\Debug\CMS.csprojResolveAssemblyReference.cache
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\obj\Debug\CMS.dll
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\obj\Debug\CMS.pdb
+C:\Users\Administrator\Desktop\Projekat\CMS\bin\Debug\CMS.dll
+C:\Users\Administrator\Desktop\Projekat\CMS\bin\Debug\CMS.pdb
+C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.AuditEventsFile.resources
+C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.dll
+C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.pdb

@@ -36,6 +36,9 @@ namespace CMS
         {
             get { return RevocationList; }
         }
+
+
+
         public CertManager()
         {
             DirectorySecurity directorySecurity = new DirectorySecurity();
@@ -68,7 +71,7 @@ namespace CMS
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "cmd.exe";
-                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.Arguments = String.Format("/c makecert -n \"CN = {0}\" -r -sv {0}.pvk {0}.cer",Issuer); ;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -76,8 +79,8 @@ namespace CMS
                 Console.WriteLine(p.StandardOutput.ReadToEnd());
 
         
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\"+Issuer+".cer", directoryName + Issuer + ".cer");
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\"+Issuer+".pvk", directoryName + Issuer +".pvk");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\"+Issuer+".cer", directoryName + Issuer + ".cer");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\"+Issuer+".pvk", directoryName + Issuer +".pvk");
             }
             
         }
@@ -89,6 +92,7 @@ namespace CMS
         {
             if (File.Exists(directoryName + user + ".pvk"))
             {
+                Audit.CreationCertificationFailed(user,"User certificates already exists");
                 Console.WriteLine("ERROR!\nYou already have certificates!");
                 return;
             }
@@ -101,20 +105,28 @@ namespace CMS
 
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.Arguments = argument;
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();
-            Console.WriteLine(p.StandardOutput.ReadToEnd());
+            string s=p.StandardOutput.ReadToEnd();
+
+            if (s.Contains("Succeeded"))
+            {
+                Audit.CreationCertificateSuccess(user);
+            }
+            else
+                Audit.CreationCertificationFailed(user,"Makecert failed");
+
 
             //  Console.WriteLine("Press ENTER to continue");
             //  Console.ReadLine();
 
 
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".cer", directoryName + user + ".cer");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".cer", directoryName + user + ".cer");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
 
             X509Certificate2 certificate = null;
 
@@ -128,27 +140,46 @@ namespace CMS
             }
 
             certicates.Add(user, certificate);
-           Console.WriteLine(certificate.GetExpirationDateString());
-           counter++;
+            Validation val = new Validation();
+            try
+            {
+                val.Validate(certificate);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            counter++;
         }
 
         public static void CompromisedCert(string user)
         {
-            foreach(string name in certicates.Keys)
+            if (certicates.ContainsKey(user))
             {
-                if(name==user)
+
+                foreach (string name in certicates.Keys)
                 {
-                    RevocationList.Add(user, certicates[user]);
-                    certicates.Remove(user);
-                    break;
+                    if (name == user)
+                    {
+                        RevocationList.Add(user, certicates[user]);
+                        certicates.Remove(user);
+                        Audit.RevocationSuccess(user);
+                        break;
+                    }
                 }
+
+
+
+                File.Move(directoryName + user + ".cer", RVdirectoryName + user + ".cer");
+                File.Move(directoryName + user + ".pvk", RVdirectoryName + user + ".pvk");
+                File.Move(directoryName + user + ".pfx", RVdirectoryName + user + ".pfx");
+
+                CreateCertificate(user);
             }
-
-            File.Move(directoryName + user + ".cer", RVdirectoryName + user + ".cer");
-            File.Move(directoryName + user + ".pvk", RVdirectoryName + user + ".pvk");
-            File.Move(directoryName + user + ".pfx", RVdirectoryName + user + ".pfx");
-
-            CreateCertificate(user);
+            else
+                Audit.RevocationFailed("Certificate does not exist");
+            
 
         }
 

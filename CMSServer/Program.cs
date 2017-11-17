@@ -12,8 +12,10 @@ namespace CMSServer
         static void Main(string[] args)
         {
             CertManager certManager = new CertManager();
-             CertManager.CreateCertificate("pera");
-            //CertManager.CompromisedCert("Administrator");
+              CertManager.CreateCertificate("isidora");
+           
+            
+            CertManager.CompromisedCert("isidora");
             Console.ReadKey();
         }
     }

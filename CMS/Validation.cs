@@ -11,10 +11,30 @@ namespace CMS
     {
         public override void Validate(X509Certificate2 certificate)
         {
-            if (!certificate.Issuer.Equals(CertManager.Issuer))
+            if (!certificate.Issuer.Equals("CN="+CertManager.Issuer))
             {
+                Audit.ValidationFailed("Issuer is not familiar");
                 throw new Exception("Certificate is not valid");
             }
+
+            foreach(X509Certificate2  cert in CertManager.RevList.Values)
+            {
+                if(certificate.Thumbprint==cert.Thumbprint)
+                {
+                    Audit.ValidationFailed("Certificate is compromised");
+                    throw new Exception("Certificate is not valid");
+                }
+            }
+
+            DateTime d = Convert.ToDateTime(certificate.GetExpirationDateString());
+            if(d<DateTime.Now)
+            {
+                Audit.ValidationFailed("Certificate has expired");
+                throw new Exception("Certificate has expired");
+            }
+
+            Audit.ValidationSuccess();
+        
         }
     }
 }
