@@ -1,0 +1,11 @@
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\bin\Debug\CMSServer.exe.config
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\bin\Debug\CMSServer.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\bin\Debug\CMSServer.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\bin\Debug\CMS.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\bin\Debug\CMS.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\obj\Debug\CMSServer.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\obj\Debug\CMSServer.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMSServer\obj\Debug\CMSServer.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\repozitorijum\Projekat\CMSServer\bin\Debug\CMSServer.exe.config
+C:\Users\Administrator.DOMAINADMINS0\Desktop\repozitorijum\Projekat\CMSServer\obj\Debug\CMSServer.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\repozitorijum\Projekat\CMSServer\obj\Debug\CMSServer.pdb
