@@ -15,7 +15,7 @@ namespace CMS
 {
     public class CertManager
     {
-      
+
         private static string directoryName = null;
         private static string RVdirectoryName = null;
         private static string issuer = "TestCA";
@@ -163,7 +163,7 @@ namespace CMS
 
         public static void CompromisedCert(string user)
         {
-          
+
             if (!(certificates.Find(item => item.name == user).Equals(default(Certificate))))
             {
 
@@ -212,7 +212,7 @@ namespace CMS
             using (TextReader reader = new StreamReader(str + ".xml"))
             {
                 object obj = deserializer.Deserialize(reader);
-                if(str=="Users")
+                if (str == "Users")
                     Users = (List<string>)obj;
                 else
                     RVUsers = (List<string>)obj;
@@ -225,7 +225,7 @@ namespace CMS
             XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
             using (TextWriter textWriter = new StreamWriter(str + ".xml"))
             {
-                if(str=="Users")
+                if (str == "Users")
                     serializer.Serialize(textWriter, Users);
                 else
                     serializer.Serialize(textWriter, RVUsers);
@@ -267,7 +267,7 @@ namespace CMS
                     }
                 }
             }
-           
+
         }
     }
 }

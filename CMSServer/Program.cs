@@ -13,6 +13,7 @@ namespace CMSServer
         static void Main(string[] args)
         {
             CertManager certManager = new CertManager();
+
             certManager.Deserialize("Users");//iscitava iz fajla usere
             CertManager.GetCertificateFromFile("Users");//popunjava listu sertifikata
             certManager.Deserialize("RVUsers");//iscitava iz fajla RVusere
@@ -26,6 +27,7 @@ namespace CMSServer
 
             certManager.Serialize("Users");
             certManager.Serialize("RVUsers");
+
             Console.ReadKey();
         }
     }
