@@ -7,22 +7,16 @@ using System.Threading.Tasks;
 
 namespace CommonContracts
 {
-    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IClient))]
+    [ServiceContract(CallbackContract = typeof(IPublishing))]
     public interface ISubscription
     {
         [OperationContract]
-        List<string> ReadEvents();
-
-        [OperationContract]
         List<string> AllEvents();
 
-        [OperationContract(IsOneWay = false, IsTerminating = true)]
+        [OperationContract]
         void Subscribe(string topicName);
 
-        [OperationContract(IsOneWay = false, IsTerminating = true)]
+        [OperationContract]
         void UnSubscribe(string topicName);
-
-        [OperationContract(IsOneWay = false, IsInitiating = true)]
-        void Publish(string msg, string issueNumber);
     }
 }

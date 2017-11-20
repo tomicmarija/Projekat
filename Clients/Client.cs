@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Clients
 {
-    public class Client :  ChannelFactory<ISubscription> , ISubscription, IClient
+    public class Client : ISubscription, IPublishing, IDisposable
     {
-        ISubscription factory;
+        ISubscription _proxy;
         public Client(NetTcpBinding binding, EndpointAddress address)
-            : base(binding, address)
         {
-            factory = this.CreateChannel();
+            DuplexChannelFactory <ISubscription> channelFactory = new DuplexChannelFactory<ISubscription>(new InstanceContext(this), binding, address);
+            _proxy = channelFactory.CreateChannel();
         }
 
         public List<string> AllEvents()
@@ -24,54 +24,35 @@ namespace Clients
             List<string> list = new List<string>();
             try
             {
-                list = factory.AllEvents();
-                //Console.WriteLine("Klijent se pretplatio na dogadjaj: " + topicName);
-
+                list = _proxy.AllEvents();
             }
             catch (Exception e)
             {
                 Console.WriteLine("[AllEvents] ERROR = {0}", e.Message);
-
             }
             return list;
         }
 
-        public void MessageReceived(string msg)
+        public void Dispose()
         {
-            Console.WriteLine("New event: {0}", msg);
+            if (_proxy != null)
+                _proxy = null;
+
         }
 
-        public void Publish(string msg, string issueNumber)
+        public void Publish(string e, string topicName)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<string> ReadEvents()
-        {
-            List<string> list = new List<string>();
-            try
+            if(e != string.Empty)
             {
-                list =  factory.ReadEvents();
-                //Console.WriteLine("Klijent se pretplatio na dogadjaj: " + topicName);
-
+                Console.WriteLine("Event: {0}", e);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("[ReadFromFile] ERROR = {0}", e.Message);
-                
-            }
-                return list;
-            
-        }
-          
+        }        
 
         public void Subscribe(string topicName)
         {
             try
             {
-                factory.Subscribe(topicName);
-                Console.WriteLine("Klijent se pretplatio na dogadjaj: " + topicName);
-
+                _proxy.Subscribe(topicName);           
             }
             catch (Exception e)
             {
@@ -83,8 +64,7 @@ namespace Clients
         {
             try
             {
-                factory.UnSubscribe(topicName);
-
+                _proxy.UnSubscribe(topicName);
             }
             catch (Exception e)
             {

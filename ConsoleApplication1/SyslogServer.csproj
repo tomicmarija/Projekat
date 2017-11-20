@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PubSubCode\NewIssueAvailableEventArgs.cs" />
     <Compile Include="PubSubCode\PublishingService.cs" />
     <Compile Include="PubSubCode\PubSubFilter.cs" />
     <Compile Include="PubSubCode\Subscription.cs" />
@@ -60,6 +60,10 @@
     <ProjectReference Include="..\CommonContracts\CommonContracts.csproj">
       <Project>{B3E47A6E-A5E3-46A4-8A05-23B5FBA20B8C}</Project>
       <Name>CommonContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecurityManager\SecurityManager.csproj">
+      <Project>{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}</Project>
+      <Name>SecurityManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

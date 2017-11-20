@@ -5,6 +5,7 @@ namespace Clients
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             List<string> list = new List<string>();
@@ -12,26 +13,39 @@ namespace Clients
 
             NetTcpBinding binding = new NetTcpBinding();
 
-            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:2110/ISubscription"));
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:2113/ISubscription"));
+            
             //list = SyslogFormat.GetAllEvents();
 
             using (Client proxy = new Client(binding, address))
             {
                 //iscitati sve dogadjaje na konzolu i da on odabere na koji dodgadja hoce da se pretplti (bira prema facility kodu-tj. dogadjaju)
-                Console.WriteLine("Events for subscribe: ");
-                list = proxy.AllEvents();
-                foreach(string st in list)
+                string eventForSubscription = string.Empty;
+                int evForSub = -1;
+                
+                while(evForSub < 0 || evForSub > 5)
                 {
-                    Console.WriteLine(st);
+                    Console.WriteLine("Events for subscribe: ");
+                    list = proxy.AllEvents();
+                    int counter = 1;
+                    foreach (string st in list)
+                    {
+                        Console.WriteLine("{0}. {1}", counter, st);
 
+                    }
+                    Console.WriteLine("Choose event to subscribe: ");
+
+                    eventForSubscription = Console.ReadLine();
+                    evForSub = Int32.Parse(eventForSubscription);
                 }
-                Console.WriteLine("Choose event to subscribe: ");
-
-                string eventForSubscription = Console.ReadLine();
-                int evForSub = Int32.Parse(eventForSubscription);
-
-                //proxy.Subscribe(list[evForSub]);
+                
+                proxy.Subscribe(list[evForSub-1]);
+                Console.ReadLine();
+                proxy.UnSubscribe(list[evForSub - 1]);
             }
+
+            
+            
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CommonContracts
     [ServiceContract]
     public interface IPublishing
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void Publish(string e, string topicName);
 
     }

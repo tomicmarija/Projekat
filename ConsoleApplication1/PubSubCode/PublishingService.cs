@@ -3,27 +3,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SyslogServer.PubSubCode
 {
 
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class PublishingService : IPublishing
     {
         public void Publish(string e , string topicName)
         { 
-            List<IClient> subscribers = PubSubFilter.GetSubscribers(topicName);
+            List<IPublishing> subscribers = PubSubFilter.GetSubscribers(topicName);
 
             if(subscribers == null)
             {
                 return;
             }
 
-            //calling the method
-            MethodInfo publishMethod = typeof(IClient).GetMethod("Publish");
+            MethodInfo publishMethod = typeof(IPublishing).GetMethod("Publish");
 
-            foreach(IClient subscriber in subscribers)
+            foreach(IPublishing subscriber in subscribers)
             {
                 try
                 {

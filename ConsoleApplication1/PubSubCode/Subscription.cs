@@ -10,17 +10,13 @@ using static SyslogServer.PubSubCode.Subscription;
 
 namespace SyslogServer.PubSubCode
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Subscription : ISubscription
     {
-        public static event NewIssueAvailableHanlder NewIssueAvailableEvent;
-        public delegate void NewIssueAvailableHanlder(object sender, NewIssueAvailableEventArgs e);
-        NewIssueAvailableHanlder newIssueHandler;
-        IClient callback = null;
-
+        
         static string path = "Events.txt";
-
-        public List<string> ReadEvents()
+        private PublishingService _publishingService = new PublishingService();
+        public List<string> ReadEvents(string topicName)
         {
             List<string> events = new List<string>();
             string line;
@@ -31,13 +27,15 @@ namespace SyslogServer.PubSubCode
                 StreamReader sr = new StreamReader(path);
                 line = sr.ReadLine();
 
-                while (line != null)
+                while(line != null)
                 {
                     splitedLine = line.Split('-');
-                    if (!events.Contains(splitedLine[3]))
-                        events.Add(splitedLine[3]);
+                    if (splitedLine[3] == topicName)
+                        events.Add(line);
                     line = sr.ReadLine();
                 }
+                
+                
                 sr.Close();
             }
             catch (Exception e)
@@ -51,47 +49,37 @@ namespace SyslogServer.PubSubCode
         public List<string> AllEvents()
         {
             List<string> list = new List<string>();
-            list.Add("1." + Events.UserLevelMessages.ToString());
-            list.Add("2." + Events.SecurityAuthorizationMessages.ToString());
-            list.Add("3." + Events.MessagesGeneratedBySyslog.ToString());
-            list.Add("4." + Events.LogAudit.ToString());
-            list.Add("5." + Events.LogAlert.ToString());
+            list.Add(Events.UserLevelMessages.ToString());
+            list.Add( Events.SecurityAuthorizationMessages.ToString());
+            list.Add(Events.MessagesGeneratedBySyslog.ToString());
+            list.Add(Events.LogAudit.ToString());
+            list.Add(Events.LogAlert.ToString());
 
             return list;
         }
 
         public void Subscribe(string topicName)
         {
-            /*IClient subscriber = OperationContext.Current.GetCallbackChannel<IClient>();
+            IPublishing subscriber = OperationContext.Current.GetCallbackChannel<IPublishing>();
+            PubSubFilter.AddSubscriber(topicName, subscriber);
 
-            PubSubFilter.AddSubscriber(topicName, subscriber);*/
+            List<string> _historyEvents = new List<string>();
+            _historyEvents = ReadEvents(topicName);
+            
+            foreach(string _event in _historyEvents)
+            {
+                _publishingService.Publish(_event, topicName);
+            }
+          
 
-            callback = OperationContext.Current.GetCallbackChannel<IClient>();
-            newIssueHandler = new NewIssueAvailableHanlder(Publish_NewIssueAvailableEvent);
-            NewIssueAvailableEvent += newIssueHandler;
-
+            
         }
 
         public void UnSubscribe(string topicName)
         {
-            /*IClient subscriber = OperationContext.Current.GetCallbackChannel<IClient>(); //uzimam bas tog subscriber-a
-            PubSubFilter.RemoveSubscriber(topicName, subscriber);*/
-
-            NewIssueAvailableEvent -= newIssueHandler;
+            IPublishing subscriber = OperationContext.Current.GetCallbackChannel<IPublishing>(); //uzimam bas tog subscriber-a
+            PubSubFilter.RemoveSubscriber(topicName, subscriber);
         }
 
-        public void Publish(string msg, string issueNumber)
-        {
-            NewIssueAvailableEventArgs eargs = new NewIssueAvailableEventArgs();
-            eargs.msg = msg;
-            eargs.issueNumber = issueNumber;
-
-            NewIssueAvailableEvent(this, eargs);
-        }
-
-        public void Publish_NewIssueAvailableEvent(object sender, NewIssueAvailableEventArgs e)
-        {
-            callback.MessageReceived(e.msg);
-        }
     }
 }

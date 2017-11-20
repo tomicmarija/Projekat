@@ -1,8 +1,11 @@
 ﻿using CommonContracts;
+using SecurityManager;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Policy;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +13,7 @@ namespace SyslogServer
 {
     class Program
     {
-
+        [STAThread]
         static void Main(string[] args)
         {
 
@@ -21,15 +24,31 @@ namespace SyslogServer
             ServiceHost host = new ServiceHost(typeof(PubSubCode.WCFService));
             host.AddServiceEndpoint(typeof(IWCFContract), binding, address);
 
-            string address1 = "net.tcp://localhost:2110/ISubscription";
+            string _subscribeAddress = "net.tcp://localhost:2113/ISubscription";
+            NetTcpBinding _subscribeBinding = new NetTcpBinding();
+            ServiceHost _subscribeServiceHost = new ServiceHost(typeof(PubSubCode.Subscription));
+            _subscribeServiceHost.AddServiceEndpoint(typeof(ISubscription), _subscribeBinding, _subscribeAddress);
 
-            ServiceHost host1 = new ServiceHost(typeof(PubSubCode.Subscription));
-            host1.AddServiceEndpoint(typeof(ISubscription), binding, address1);
+            _subscribeServiceHost.Authorization.ServiceAuthorizationManager = new CustomAuthorizationManager();
+
+            List<IAuthorizationPolicy> policies = new List<IAuthorizationPolicy>();
+            policies.Add(new CustomAuthorizationPolicy());
+            _subscribeServiceHost.Authorization.ExternalAuthorizationPolicies = policies.AsReadOnly();
+
+            _subscribeServiceHost.Authorization.PrincipalPermissionMode = PrincipalPermissionMode.Custom;
+
+            _subscribeServiceHost.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));
+            _subscribeServiceHost.Description.Behaviors.Add(new ServiceDebugBehavior() { IncludeExceptionDetailInFaults = true });
+
+            string _publishAddress = "net.tcp://localhost:2112/IPublishing";
+            ServiceHost _publishServiceHost = new ServiceHost(typeof(PubSubCode.PublishingService));
+            _publishServiceHost.AddServiceEndpoint(typeof(IPublishing), binding, _publishAddress);
 
             try
             {
                 host.Open();
-                host1.Open();
+                _subscribeServiceHost.Open();
+                _publishServiceHost.Open();
                 Console.WriteLine("WCFService is started.\nPress <enter> to stop ...");
                 Console.ReadLine();
 
@@ -41,7 +60,8 @@ namespace SyslogServer
             finally
             {
                 host.Close();
-                host1.Close();
+                _subscribeServiceHost.Close();
+                _publishServiceHost.Close();
             }
         }
     }

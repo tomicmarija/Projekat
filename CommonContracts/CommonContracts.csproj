@@ -46,7 +46,6 @@
     <Compile Include="IPublishing.cs" />
     <Compile Include="ISubscription.cs" />
     <Compile Include="IWCFContract.cs" />
-    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

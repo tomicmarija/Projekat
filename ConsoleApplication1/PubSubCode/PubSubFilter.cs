@@ -9,9 +9,9 @@ namespace SyslogServer.PubSubCode
 {
     public class PubSubFilter
     {
-        static Dictionary<string, List<IClient>> subscribersList = new Dictionary<string, List<IClient>>();
+        static Dictionary<string, List<IPublishing>> subscribersList = new Dictionary<string, List<IPublishing>>();
 
-        public static Dictionary<string,List<IClient>> SubscribersList
+        public static Dictionary<string,List<IPublishing>> SubscribersList
         {
             get
             {
@@ -22,7 +22,7 @@ namespace SyslogServer.PubSubCode
             }
         }
 
-        public static List<IClient> GetSubscribers(string topicName)
+        public static List<IPublishing> GetSubscribers(string topicName)
         {
             lock(typeof(PubSubFilter))
             {
@@ -35,7 +35,7 @@ namespace SyslogServer.PubSubCode
             }
         }
 
-        public static void AddSubscriber(string topicName, IClient subscriber)
+        public static void AddSubscriber(string topicName, IPublishing subscriber)
         {
             lock(typeof(PubSubFilter))
             {
@@ -48,7 +48,7 @@ namespace SyslogServer.PubSubCode
                 }
                 else
                 {
-                    List<IClient> newSubscribersList = new List<IClient>();
+                    List<IPublishing> newSubscribersList = new List<IPublishing>();
                     newSubscribersList.Add(subscriber);
                     SubscribersList.Add(topicName, newSubscribersList);
                 }
@@ -56,7 +56,7 @@ namespace SyslogServer.PubSubCode
                     
         }
 
-        public static void RemoveSubscriber(string topicName, IClient subscriber)
+        public static void RemoveSubscriber(string topicName, IPublishing subscriber)
         {
             lock(typeof(PubSubFilter))
             {
