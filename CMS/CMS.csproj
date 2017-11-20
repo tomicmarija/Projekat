@@ -42,9 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audit.cs" />
+    <Compile Include="AuditEvents.cs" />
+    <Compile Include="AuditEventsFile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditEventsFile.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Certificate.cs" />
     <Compile Include="CertManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AuditEventsFile.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AuditEventsFile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
