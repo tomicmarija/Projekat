@@ -13,15 +13,15 @@ namespace CMS
     {
         public override void Validate(X509Certificate2 certificate)
         {
-            if (!certificate.Issuer.Equals("CN=" + CertManager.Issuer))
+            if (!certificate.Issuer.Equals("CN="+CertManager.Issuer))
             {
                 Audit.ValidationFailed("Issuer is not familiar");
                 throw new Exception("Certificate is not valid");
             }
 
-            foreach (Certificate cert in CertManager.RevList)
+            foreach(Certificate cert in CertManager.RevList)
             {
-                if (certificate.Thumbprint == cert.cert.Thumbprint)
+                if(certificate.Thumbprint==cert.cert.Thumbprint)
                 {
                     Audit.ValidationFailed("Certificate is compromised");
                     throw new Exception("Certificate is not valid");
@@ -29,14 +29,14 @@ namespace CMS
             }
 
             DateTime d = Convert.ToDateTime(certificate.GetExpirationDateString());
-            if (d < DateTime.Now)
+            if(d<DateTime.Now)
             {
                 Audit.ValidationFailed("Certificate has expired");
                 throw new Exception("Certificate has expired");
             }
 
             Audit.ValidationSuccess();
-
+        
         }
     }
 }

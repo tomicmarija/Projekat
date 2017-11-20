@@ -10,7 +10,6 @@ C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.AuditEventsFile.resour
 C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.csproj.GenerateResource.Cache
 C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.dll
 C:\Users\Administrator\Desktop\Projekat\CMS\obj\Debug\CMS.pdb
-<<<<<<< HEAD
 C:\Users\Administrator\Desktop\ivona\CMS\obj\Debug\CMS.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\ivona\CMS\obj\Debug\CMS.AuditEventsFile.resources
 C:\Users\Administrator\Desktop\ivona\CMS\obj\Debug\CMS.csproj.GenerateResource.Cache
@@ -25,5 +24,3 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.AuditEvents
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.csproj.GenerateResource.Cache
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.dll
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.pdb
-=======
->>>>>>> 57130904ff635df1220eee7ee904ba9e02268c55

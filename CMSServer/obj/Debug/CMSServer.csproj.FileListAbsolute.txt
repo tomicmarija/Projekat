@@ -20,7 +20,6 @@ C:\Users\Administrator\Desktop\Projekat\CMSServer\obj\Debug\CMSServer.pdb
 C:\Users\Administrator\Desktop\novi\Projekat\CMSServer\bin\Debug\CMSServer.exe.config
 C:\Users\Administrator\Desktop\novi\Projekat\CMSServer\obj\Debug\CMSServer.exe
 C:\Users\Administrator\Desktop\novi\Projekat\CMSServer\obj\Debug\CMSServer.pdb
-<<<<<<< HEAD
 C:\Users\Administrator\Desktop\ivona\CMSServer\bin\Debug\CMSServer.exe.config
 C:\Users\Administrator\Desktop\ivona\CMSServer\obj\Debug\CMSServer.exe
 C:\Users\Administrator\Desktop\ivona\CMSServer\obj\Debug\CMSServer.pdb
@@ -37,5 +36,3 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMSServer\bin\Debug\CMSServer
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMSServer\bin\Debug\CMS.dll
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMSServer\bin\Debug\CMS.pdb
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMSServer\obj\Debug\CMSServer.csprojResolveAssemblyReference.cache
-=======
->>>>>>> 57130904ff635df1220eee7ee904ba9e02268c55

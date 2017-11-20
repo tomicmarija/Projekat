@@ -49,10 +49,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AuditEventsFile.resx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Certificate.cs" />
-=======
->>>>>>> 57130904ff635df1220eee7ee904ba9e02268c55
     <Compile Include="CertManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation.cs" />
