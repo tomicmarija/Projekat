@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CMS;
+using System.ServiceModel;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
+using CMS;
+using System.ServiceModel.Security;
+using CommonContracts;
 
 namespace CMSServer
 {
@@ -12,21 +12,37 @@ namespace CMSServer
     {
         static void Main(string[] args)
         {
-            CertManager certManager = new CertManager();
-            certManager.Deserialize("Users");//iscitava iz fajla usere
-            CertManager.GetCertificateFromFile("Users");//popunjava listu sertifikata
-            certManager.Deserialize("RVUsers");//iscitava iz fajla RVusere
-            CertManager.GetCertificateFromFile("RVUsers");//popunjava listu RVsertifikata
+            CertManager.Set(); //kreiranje foldera i TestCA
 
-            //CertManager.CreateCertificate("isidora");
-            //CertManager.CreateCertificate("ivona");
+            //otvaranje kanala
+            NetTcpBinding binding = new NetTcpBinding();
+
+            string address = "net.tcp://localhost:9999/Receiver";
+            ServiceHost host = new ServiceHost(typeof(CertServices));
+            host.AddServiceEndpoint(typeof(ICertServices), binding, address);
+
+            try
+            {
+                host.Open();
+                Console.WriteLine("CMSServer is started.\nPress <enter> to stop ...");
+                Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[ERROR] {0}", e.Message);
+                Console.WriteLine("[StackTrace] {0}", e.StackTrace);
+            }
+            finally
+            {
+                host.Close();
+            }
 
 
-            //CertManager.CompromisedCert("isidora");
-
-            certManager.Serialize("Users");
-            certManager.Serialize("RVUsers");
-            Console.ReadKey();
+          
+         //   Console.ReadKey();
+            //pamecenje korisnika koji imaju sertifikate
+          CertOperations.Serialize("Users");
+            CertOperations.Serialize("RVUsers");            
         }
     }
 }

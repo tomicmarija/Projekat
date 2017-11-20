@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +53,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SyslogServer\CommonContracts\CommonContracts.csproj">
+      <Project>{b3e47a6e-a5e3-46a4-8a05-23b5fba20b8c}</Project>
+      <Name>CommonContracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CMS\CMS.csproj">
       <Project>{645939c3-00d3-486f-9bfc-4f9d562bca32}</Project>
       <Name>CMS</Name>

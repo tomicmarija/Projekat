@@ -19,12 +19,10 @@ namespace CMS
         private static string directoryName = null;
         private static string RVdirectoryName = null;
         private static string issuer = "TestCA";
-        //  private static Dictionary<string,X509Certificate2> certicates=new Dictionary<string, X509Certificate2>();
-        //   private static Dictionary<string, X509Certificate2> RevocationList = new Dictionary<string, X509Certificate2>();
         private static List<Certificate> certificates = new List<Certificate>();
         private static List<Certificate> RevocationList = new List<Certificate>();
-        private static List<string> Users = new List<string>();
-        private static List<string> RVUsers = new List<string>();
+        private static List<string> users = new List<string>();
+        private static List<string> rvUsers = new List<string>();
 
         public static string Issuer
         {
@@ -41,9 +39,23 @@ namespace CMS
             get { return RevocationList; }
         }
 
+        public static List<string> Users
+        {
+            get { return users; }
+
+            set { users = value; }
+        }
+
+        public static List<string> RVUsers
+        {
+            get { return rvUsers; }
+
+            set { rvUsers = value; }
+        }
 
 
-        public CertManager()
+
+        public static void Set()
         {
             DirectorySecurity directorySecurity = new DirectorySecurity();
             IdentityReference identity = WindowsIdentity.GetCurrent().User;
@@ -65,6 +77,17 @@ namespace CMS
 
                 if (!Directory.Exists(RVdirectoryName))
                     Directory.CreateDirectory(RVdirectoryName, directorySecurity);
+
+                if (File.Exists("Users"))
+                {
+                    CertOperations.Deserialize("Users");
+                    CertOperations.AddCertificatesToList("Users");
+                }
+                if (File.Exists("RVUsers"))
+                {
+                    CertOperations.Deserialize("RVUsers");
+                    CertOperations.AddCertificatesToList("RVUsers");
+                }
             }
             catch (Exception e)
             {
@@ -75,7 +98,7 @@ namespace CMS
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "cmd.exe";
-                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.Arguments = String.Format("/c makecert -n \"CN = {0}\" -r -sv {0}.pvk {0}.cer", Issuer); ;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -83,8 +106,8 @@ namespace CMS
                 Console.WriteLine(p.StandardOutput.ReadToEnd());
 
 
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + Issuer + ".cer", directoryName + Issuer + ".cer");
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + Issuer + ".pvk", directoryName + Issuer + ".pvk");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + Issuer + ".cer", directoryName + Issuer + ".cer");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + Issuer + ".pvk", directoryName + Issuer + ".pvk");
             }
 
         }
@@ -92,13 +115,13 @@ namespace CMS
 
 
         private static int counter = 1;
-        public static void CreateCertificate(string user)
+        public static X509Certificate2 CreateCertificate(string user)
         {
             if (File.Exists(directoryName + user + ".pvk"))
             {
                 Audit.CreationCertificationFailed(user, "User certificates already exists");
                 Console.WriteLine("ERROR!\nYou already have certificates!");
-                return;
+                return null;
             }
 
             string argument = String.Format("/c makecert -sv {0}.pvk -iv TestCA.pvk -n \"CN = {0}\" -pe -ic TestCA.cer {0}.cer -sr localmachine -ss My -sky exchange & pvk2pfx.exe /pvk {0}.pvk /pi {1} /spc {0}.cer /pfx {0}.pfx", user, counter.ToString());
@@ -109,7 +132,7 @@ namespace CMS
 
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.Arguments = argument;
             p.StartInfo.RedirectStandardOutput = true;
@@ -124,13 +147,10 @@ namespace CMS
                 Audit.CreationCertificationFailed(user, "Makecert failed");
 
 
-            //  Console.WriteLine("Press ENTER to continue");
-            //  Console.ReadLine();
 
-
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".cer", directoryName + user + ".cer");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".cer", directoryName + user + ".cer");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
 
             X509Certificate2 certificate = null;
 
@@ -148,18 +168,13 @@ namespace CMS
             c.name = user;
             certificates.Add(c);
             Users.Add(user);
-            /*Validation val = new Validation();
-            try
-            {
-                val.Validate(certificate);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }*/
 
             counter++;
+
+            return certificate;
         }
+
+
 
         public static void CompromisedCert(string user)
         {
@@ -200,74 +215,9 @@ namespace CMS
             {
                 Audit.RevocationFailed("Certificate does not exist");
             }
-
-
-
-
-        }
-
-        public void Deserialize(string str)
-        {
-            XmlSerializer deserializer = new XmlSerializer(typeof(List<string>));
-            using (TextReader reader = new StreamReader(str + ".xml"))
-            {
-                object obj = deserializer.Deserialize(reader);
-                if(str=="Users")
-                    Users = (List<string>)obj;
-                else
-                    RVUsers = (List<string>)obj;
-            }
-        }
-
-        public void Serialize(string str)
-        {
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
-            using (TextWriter textWriter = new StreamWriter(str + ".xml"))
-            {
-                if(str=="Users")
-                    serializer.Serialize(textWriter, Users);
-                else
-                    serializer.Serialize(textWriter, RVUsers);
-            }
         }
 
 
-        public static void GetCertificateFromFile(string str)
-        {
-            X509Certificate2 certificate = null;
-
-            if (str == "Users")
-            {
-                foreach (string u in Users)
-                {
-                    try
-                    {
-                        certificate = new X509Certificate2(string.Format(@"Sertifikati\{0}.cer", u));
-                        certificates.Add(new Certificate(certificate, u));
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Error while trying to GetCertificateFromFile {0}. ERROR = {1}", u, e.Message);
-                    }
-                }
-            }
-            else
-            {
-                foreach (string u in RVUsers)
-                {
-                    try
-                    {
-                        certificate = new X509Certificate2(string.Format(@"RV\{0}.cer", u));
-                        RevocationList.Add(new Certificate(certificate, u));
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Error while trying to GetCertificateFromFile {0}. ERROR = {1}", u, e.Message);
-                    }
-                }
-            }
-           
-        }
+        
     }
 }
