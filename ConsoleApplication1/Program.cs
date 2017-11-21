@@ -37,6 +37,14 @@ namespace SyslogServer
 
             _subscribeServiceHost.Authorization.PrincipalPermissionMode = PrincipalPermissionMode.Custom;
 
+            ServiceSecurityAuditBehavior newAudit = new ServiceSecurityAuditBehavior();
+            newAudit.AuditLogLocation = AuditLogLocation.Application;
+            newAudit.ServiceAuthorizationAuditLevel = AuditLevel.SuccessOrFailure;
+            newAudit.SuppressAuditFailure = true;
+
+            _subscribeServiceHost.Description.Behaviors.Remove<ServiceSecurityAuditBehavior>();
+            _subscribeServiceHost.Description.Behaviors.Add(newAudit);
+
             _subscribeServiceHost.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));
             _subscribeServiceHost.Description.Behaviors.Add(new ServiceDebugBehavior() { IncludeExceptionDetailInFaults = true });
 

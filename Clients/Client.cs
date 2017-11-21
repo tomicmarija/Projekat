@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +34,53 @@ namespace Clients
             return list;
         }
 
+        public bool Delete(string topicName)
+        {
+            bool allowed = false;
+
+            try
+            {
+                allowed = _proxy.Delete(topicName);
+
+                if (!allowed)
+                {
+                    Console.WriteLine("You are not allowed for deleting events!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[Edit] ERROR = {0}", e.Message);
+            }
+
+            return allowed;
+        }
+
         public void Dispose()
         {
             if (_proxy != null)
                 _proxy = null;
 
+        }
+
+        public bool Edit(string topicName)
+        {
+            bool allowed = false;
+
+            try
+            {
+                allowed = _proxy.Edit(topicName);
+
+                if (!allowed)
+                {
+                    Console.WriteLine("You are not allowed for editing events!");
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("[Edit] ERROR = {0}", e.Message);
+            }
+
+            return allowed;
         }
 
         public void Publish(string e, string topicName)
@@ -48,16 +91,25 @@ namespace Clients
             }
         }        
 
-        public void Subscribe(string topicName)
+        public bool Subscribe(string topicName)
         {
+            bool allowed = false;
+            
             try
             {
-                _proxy.Subscribe(topicName);           
+                allowed = _proxy.Subscribe(topicName);
+
+                if (!allowed)
+                {
+                    Console.WriteLine("You don't have permission for subscribing facility code for {0}!", topicName);
+                }        
             }
-            catch (Exception e)
-            {
+            catch (Exception  e)
+            {            
                 Console.WriteLine("[Subscribe] ERROR = {0}", e.Message);
             }
+
+            return allowed;
         }
 
         public void UnSubscribe(string topicName)

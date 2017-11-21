@@ -1,46 +1,29 @@
-11/17/2017 8:57:46 AM-P04-17\Administrator-UserLevelMessages-5-1-eoiotiretuj
 11/17/2017 8:57:48 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-rokjitgjpogk
 11/17/2017 8:57:50 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-3-rotikrutgj
-11/17/2017 8:58:40 AM-P04-17\Administrator-UserLevelMessages-5-1-hggyu
 11/17/2017 8:58:42 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-ygyyy
-11/17/2017 9:00:10 AM-P04-17\Administrator-UserLevelMessages-5-1-kgiotyp
 11/17/2017 9:00:11 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-trfyjoi
-11/17/2017 9:00:53 AM-P04-17\Administrator-UserLevelMessages-5-1-jdijfo
 11/17/2017 9:00:55 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-sopfkjodifjk
-11/17/2017 9:02:59 AM-P04-17\Administrator-UserLevelMessages-5-1-yguygtiuh
 11/17/2017 9:03:01 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-hiouhoijh
-11/17/2017 9:03:56 AM-P04-17\Administrator-UserLevelMessages-5-1-ghytuy
-11/17/2017 9:05:43 AM-P04-17\Administrator-UserLevelMessages-5-1-kkk
-11/17/2017 9:07:33 AM-P04-17\Administrator-UserLevelMessages-5-1-ooo
-11/17/2017 9:09:47 AM-P04-17\Administrator-UserLevelMessages-5-1-iiiii
 11/17/2017 9:09:49 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-eeeeeee
-11/17/2017 9:18:07 AM-P04-17\Administrator-UserLevelMessages-5-1-uuuuuu
 11/17/2017 9:18:10 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-2-rrrrrr
-11/17/2017 9:36:56 AM-P04-17\Administrator-UserLevelMessages-5-1-uhuhiugh
-17.11.2017. 14.15.04-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-fdshgfsdhsd
 17.11.2017. 14.15.08-PC-1\Nebojsa Kanjeric-MessagesGeneratedBySyslog-5-2-hfgdhdgfjh
 17.11.2017. 14.15.13-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-3-hdtfhdfgjdg
 17.11.2017. 14.15.32-PC-1\Nebojsa Kanjeric-MessagesGeneratedBySyslog-5-4-aaaaaaaaaaaaaaaa
 17.11.2017. 14.16.51-PC-1\Nebojsa Kanjeric-MessagesGeneratedBySyslog-5-1-dfghjkl
 17.11.2017. 14.16.59-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-2-dfghjkl;'
 17.11.2017. 14.17.10-PC-1\Nebojsa Kanjeric-MessagesGeneratedBySyslog-5-3-sdfghjkl;
-19.11.2017. 15.04.27-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-kjedws
 19.11.2017. 15.27.01-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-dccfghjkl
 19.11.2017. 15.27.18-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-dfghjk
 19.11.2017. 15.29.05-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-dfghjkl
 19.11.2017. 15.33.58-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-fsduyghisdfyigusd
-19.11.2017. 15.34.39-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-fjuaoifuaosifujas
 19.11.2017. 15.34.54-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-fjaljfasjfjafjajf;aj
 19.11.2017. 15.35.16-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-eeeeee
 19.11.2017. 15.43.29-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-fjdsjfdladsjf
 19.11.2017. 15.43.52-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-nova poruka
 19.11.2017. 15.43.56-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-najnovina
-19.11.2017. 15.44.49-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-prva poruka
-19.11.2017. 15.44.54-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-nova poruka 1
 19.11.2017. 15.44.59-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-treca poruka
 19.11.2017. 15.45.02-PC-1\Nebojsa Kanjeric-LogAlert-1-1-nema
 19.11.2017. 15.45.06-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-eeeee
-19.11.2017. 15.45.09-PC-1\Nebojsa Kanjeric-UserLevelMessages-5-1-aaaaaa
 11/20/2017 8:52:28 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-novo za 3
 11/20/2017 8:52:37 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-2
 11/20/2017 8:52:39 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-novo za 2

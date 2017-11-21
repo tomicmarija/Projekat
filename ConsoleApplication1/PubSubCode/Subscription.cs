@@ -1,10 +1,14 @@
 ﻿using CommonContracts;
+using SecurityManager;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
+using System.Security.Permissions;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static SyslogServer.PubSubCode.Subscription;
 
@@ -16,6 +20,8 @@ namespace SyslogServer.PubSubCode
         
         static string path = "Events.txt";
         private PublishingService _publishingService = new PublishingService();
+        public static Mutex mutex = new Mutex();
+
         public List<string> ReadEvents(string topicName)
         {
             List<string> events = new List<string>();
@@ -50,29 +56,44 @@ namespace SyslogServer.PubSubCode
         {
             List<string> list = new List<string>();
             list.Add(Events.UserLevelMessages.ToString());
-            list.Add( Events.SecurityAuthorizationMessages.ToString());
+            list.Add(Events.SecurityAuthorizationMessages.ToString());
             list.Add(Events.MessagesGeneratedBySyslog.ToString());
             list.Add(Events.LogAudit.ToString());
             list.Add(Events.LogAlert.ToString());
 
             return list;
         }
-
-        public void Subscribe(string topicName)
+        
+        public bool Subscribe(string topicName)
         {
-            IPublishing subscriber = OperationContext.Current.GetCallbackChannel<IPublishing>();
-            PubSubFilter.AddSubscriber(topicName, subscriber);
+            bool allowed = false;
 
-            List<string> _historyEvents = new List<string>();
-            _historyEvents = ReadEvents(topicName);
-            
-            foreach(string _event in _historyEvents)
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+
+            if (principal.IsInRole(Permissions.Edit.ToString()))
             {
-                _publishingService.Publish(_event, topicName);
+                allowed = true;
             }
-          
+            else if ((principal.IsInRole(Permissions.Read.ToString()) && (topicName == Events.MessagesGeneratedBySyslog.ToString() || topicName == Events.UserLevelMessages.ToString())))
+            {              
+                allowed = true;
+            }
 
-            
+            if (allowed)
+            {
+                IPublishing subscriber = OperationContext.Current.GetCallbackChannel<IPublishing>();
+                PubSubFilter.AddSubscriber(topicName, subscriber);
+
+                List<string> _historyEvents = new List<string>();
+                _historyEvents = ReadEvents(topicName);
+
+                foreach (string _event in _historyEvents)
+                {
+                    _publishingService.Publish(_event, topicName);
+                }
+            }
+
+            return allowed;              
         }
 
         public void UnSubscribe(string topicName)
@@ -81,5 +102,72 @@ namespace SyslogServer.PubSubCode
             PubSubFilter.RemoveSubscriber(topicName, subscriber);
         }
 
+        public bool Edit(string topicName)
+        {
+            bool allowed = false;
+
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+
+            if (principal.IsInRole(Permissions.Edit.ToString()))
+            {
+                allowed = true;
+
+                    
+
+                mutex.WaitOne();
+
+                string[] allLines = File.ReadAllLines(path);
+                using (StreamWriter sw = new StreamWriter(path))
+                    {
+                        for (int i = 0; i < allLines.Length; i++)
+                        {
+                            if (allLines[i].Contains(topicName))
+                            {
+                                allLines[i] += "_edited";
+                            }
+
+                            sw.WriteLine(allLines[i]);
+                        }
+                    }
+
+                mutex.ReleaseMutex();
+                
+                
+            }
+
+            return allowed;
+            
+        }
+
+        public bool Delete(string topicName)
+        {
+            bool allowed = false;
+
+            CustomPrincipal principal = Thread.CurrentPrincipal as CustomPrincipal;
+
+            if (principal.IsInRole(Permissions.Delete.ToString()))
+            {
+                allowed = true;
+
+                mutex.WaitOne();
+                    string[] allLines = File.ReadAllLines(path);
+
+                using(StreamWriter sw = new StreamWriter(path))
+                {
+                    for(int i = 0; i< allLines.Length; i++)
+                    {
+                        if (!allLines[i].Contains(topicName))
+                        {
+                            sw.WriteLine(allLines[i]);
+                        }
+                    }                
+                }
+
+
+                mutex.ReleaseMutex();
+            }
+
+            return allowed;
+        }
     }
 }

@@ -14,9 +14,15 @@ namespace CommonContracts
         List<string> AllEvents();
 
         [OperationContract]
-        void Subscribe(string topicName);
+        bool Subscribe(string topicName);
 
         [OperationContract]
         void UnSubscribe(string topicName);
+
+        [OperationContract]
+        bool Edit(string topicName);
+
+        [OperationContract]
+        bool Delete(string topicName);
     }
 }
