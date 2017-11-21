@@ -13,24 +13,13 @@ namespace CMSServer
         static void Main(string[] args)
         {
             CertManager.Set(); //kreiranje foldera i TestCA
-            CertManager.CreateCertificate("CMSServer"); //sertifikat za server
-
 
             //otvaranje kanala
-			string srvCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-
             NetTcpBinding binding = new NetTcpBinding();
-            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
             string address = "net.tcp://localhost:9999/Receiver";
             ServiceHost host = new ServiceHost(typeof(CertServices));
             host.AddServiceEndpoint(typeof(ICertServices), binding, address);
-
-            host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
-            host.Credentials.ClientCertificate.Authentication.CustomCertificateValidator = new Validation();
-            host.Credentials.ClientCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
-
-            host.Credentials.ServiceCertificate.Certificate = CertOperations.GetCertificateFromFile("CMSServer.pfx");
 
             try
             {
@@ -49,19 +38,11 @@ namespace CMSServer
             }
 
 
-          
-            //citanje vec kreiranih sertifikata iz fajla - podesavanje in-memory baze
-            CertOperations certManager = new CertOperations();
-            certManager.Deserialize("Users");
-            CertOperations.AddCertificatesToList("Users");
-            certManager.Deserialize("RVUsers");
-            CertOperations.AddCertificatesToList("RVUsers");
 
-
-            Console.ReadKey();
+            //   Console.ReadKey();
             //pamecenje korisnika koji imaju sertifikate
-            certManager.Serialize("Users");
-            certManager.Serialize("RVUsers");            
+            CertOperations.Serialize("Users");
+            CertOperations.Serialize("RVUsers");
         }
     }
 }

@@ -11,7 +11,7 @@ namespace CMS
 {
     public class CertOperations
     {
-        public void Deserialize(string str)
+        public static void Deserialize(string str)
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(List<string>));
             using (TextReader reader = new StreamReader(str + ".xml"))
@@ -25,7 +25,7 @@ namespace CMS
         }
 
 
-        public void Serialize(string str)
+        public static void Serialize(string str)
         {
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
@@ -83,7 +83,7 @@ namespace CMS
             X509Certificate2 certificate = null;
             try
             {
-                certificate = new X509Certificate2(fileName);
+                certificate = new X509Certificate2(@"C:\Users\Administrator\Desktop\Projekat\CMSServer\bin\Debug\Sertifikati\" + fileName);
             }
             catch (Exception e)
             {

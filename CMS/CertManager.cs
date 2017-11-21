@@ -15,7 +15,7 @@ namespace CMS
 {
     public class CertManager
     {
-      
+
         private static string directoryName = null;
         private static string RVdirectoryName = null;
         private static string issuer = "TestCA";
@@ -77,6 +77,17 @@ namespace CMS
 
                 if (!Directory.Exists(RVdirectoryName))
                     Directory.CreateDirectory(RVdirectoryName, directorySecurity);
+
+                if (File.Exists("Users"))
+                {
+                    CertOperations.Deserialize("Users");
+                    CertOperations.AddCertificatesToList("Users");
+                }
+                if (File.Exists("RVUsers"))
+                {
+                    CertOperations.Deserialize("RVUsers");
+                    CertOperations.AddCertificatesToList("RVUsers");
+                }
             }
             catch (Exception e)
             {
@@ -87,7 +98,7 @@ namespace CMS
             {
                 Process p = new Process();
                 p.StartInfo.FileName = "cmd.exe";
-                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+                p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.Arguments = String.Format("/c makecert -n \"CN = {0}\" -r -sv {0}.pvk {0}.cer", Issuer); ;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -95,8 +106,8 @@ namespace CMS
                 Console.WriteLine(p.StandardOutput.ReadToEnd());
 
 
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + Issuer + ".cer", directoryName + Issuer + ".cer");
-                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + Issuer + ".pvk", directoryName + Issuer + ".pvk");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + Issuer + ".cer", directoryName + Issuer + ".cer");
+                File.Copy(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + Issuer + ".pvk", directoryName + Issuer + ".pvk");
             }
 
         }
@@ -121,7 +132,7 @@ namespace CMS
 
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin";
+            p.StartInfo.WorkingDirectory = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.Arguments = argument;
             p.StartInfo.RedirectStandardOutput = true;
@@ -137,9 +148,9 @@ namespace CMS
 
 
 
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".cer", directoryName + user + ".cer");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
-            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".cer", directoryName + user + ".cer");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pvk", directoryName + user + ".pvk");
+            File.Move(@"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\" + user + ".pfx", directoryName + user + ".pfx");
 
             X509Certificate2 certificate = null;
 
@@ -167,7 +178,7 @@ namespace CMS
 
         public static void CompromisedCert(string user)
         {
-          
+
             if (!(certificates.Find(item => item.name == user).Equals(default(Certificate))))
             {
 
@@ -207,6 +218,6 @@ namespace CMS
         }
 
 
-        
+
     }
 }
