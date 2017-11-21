@@ -40,3 +40,17 @@ C:\Users\Administrator\Desktop\SyslogServer\Clients\bin\Debug\CMS.pdb
 C:\Users\Administrator\Desktop\SyslogServer\Clients\obj\Debug\Clients.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\SyslogServer\Clients\obj\Debug\Clients.exe
 C:\Users\Administrator\Desktop\SyslogServer\Clients\obj\Debug\Clients.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\Clients.exe.config
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\Clients.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\Clients.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\ConsoleApplication1.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\SecurityManager.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\CMS.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\ConsoleApplication1.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\SecurityManager.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\bin\Debug\CMS.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\obj\Debug\Clients.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\obj\Debug\Clients.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\Clients\obj\Debug\Clients.pdb

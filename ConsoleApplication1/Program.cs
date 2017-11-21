@@ -1,11 +1,14 @@
 ﻿using CMS;
 using CommonContracts;
+using SecurityManager;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Policy;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.ServiceModel.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +35,7 @@ namespace SyslogServer
             if (mode == "1")
             {
                 NetTcpBinding bindingCert = new NetTcpBinding();
-                EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://localhost:9999/Receiver"));
+                EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://localhost:100/Receiver"));
 
                 certFactory = new ChannelFactory<ICertServices>(bindingCert, addressCert);
                 _certProxy = certFactory.CreateChannel();
@@ -47,34 +50,47 @@ namespace SyslogServer
             }
             else
             {
-                IdentityReference identity = WindowsIdentity.GetCurrent().User;
-                SecurityIdentifier sid = (SecurityIdentifier)identity.Translate(typeof(SecurityIdentifier));
-                var name = sid.Translate(typeof(NTAccount));
-                nameStr = name.ToString();
-                nameStr = nameStr.Substring(nameStr.IndexOf('\\') + 1);
-
-
                 NetTcpBinding binding = new NetTcpBinding();
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-                string address = "net.tcp://localhost:2110/IWCFContract";
+                string address = "net.tcp://localhost:300/IWCFContract";
                 ServiceHost host = new ServiceHost(typeof(PubSubCode.WCFService));
                 host.AddServiceEndpoint(typeof(IWCFContract), binding, address);
 
                 host.Credentials.ClientCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
-                host.Credentials.ClientCertificate.Authentication.CustomCertificateValidator = new Validation();
+                host.Credentials.ClientCertificate.Authentication.CustomCertificateValidator = new ServiceValidation();
                 host.Credentials.ClientCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
-                host.Credentials.ServiceCertificate.Certificate = CertOperations.GetCertificateFromFile(nameStr + ".cer");
+                string srvCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+                host.Credentials.ServiceCertificate.Certificate = CertOperations.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, srvCertCN);
 
 
-                string _subscribeAddress = "net.tcp://localhost:2113/ISubscription";
-                NetTcpBinding _subscribeBinding = new NetTcpBinding(SecurityMode.None);
+                string _subscribeAddress = "net.tcp://localhost:301/ISubscription";
+                NetTcpBinding _subscribeBinding = new NetTcpBinding();
                 ServiceHost _subscribeServiceHost = new ServiceHost(typeof(PubSubCode.Subscription));
                 _subscribeServiceHost.AddServiceEndpoint(typeof(ISubscription), _subscribeBinding, _subscribeAddress);
 
-                string _publishAddress = "net.tcp://localhost:2112/IPublishing";
+                _subscribeServiceHost.Authorization.ServiceAuthorizationManager = new CustomAuthorizationManager();
+
+                List<IAuthorizationPolicy> policies = new List<IAuthorizationPolicy>();
+                policies.Add(new CustomAuthorizationPolicy());
+                _subscribeServiceHost.Authorization.ExternalAuthorizationPolicies = policies.AsReadOnly();
+
+                _subscribeServiceHost.Authorization.PrincipalPermissionMode = PrincipalPermissionMode.Custom;
+
+                ServiceSecurityAuditBehavior newAudit = new ServiceSecurityAuditBehavior();
+                newAudit.AuditLogLocation = AuditLogLocation.Application;
+                newAudit.ServiceAuthorizationAuditLevel = AuditLevel.SuccessOrFailure;
+                newAudit.SuppressAuditFailure = true;
+
+                _subscribeServiceHost.Description.Behaviors.Remove<ServiceSecurityAuditBehavior>();
+                _subscribeServiceHost.Description.Behaviors.Add(newAudit);
+
+                _subscribeServiceHost.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));
+                _subscribeServiceHost.Description.Behaviors.Add(new ServiceDebugBehavior() { IncludeExceptionDetailInFaults = true });
+
+                string _publishAddress = "net.tcp://localhost:302/IPublishing";
                 ServiceHost _publishServiceHost = new ServiceHost(typeof(PubSubCode.PublishingService));
-                _publishServiceHost.AddServiceEndpoint(typeof(IPublishing), binding, _publishAddress);
+                _publishServiceHost.AddServiceEndpoint(typeof(IPublishing), new NetTcpBinding(), _publishAddress);
 
                 try
                 {

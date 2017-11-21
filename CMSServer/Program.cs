@@ -17,7 +17,7 @@ namespace CMSServer
             //otvaranje kanala
             NetTcpBinding binding = new NetTcpBinding();
 
-            string address = "net.tcp://localhost:9999/Receiver";
+            string address = "net.tcp://localhost:100/Receiver";
             ServiceHost host = new ServiceHost(typeof(CertServices));
             host.AddServiceEndpoint(typeof(ICertServices), binding, address);
 
@@ -38,11 +38,11 @@ namespace CMSServer
             }
 
 
-          
-         //   Console.ReadKey();
-            //pamecenje korisnika koji imaju sertifikate
-          CertOperations.Serialize("Users");
-            CertOperations.Serialize("RVUsers");            
+
+            Console.ReadKey();
+
+            CertOperations.Serialize("Users");
+            CertOperations.Serialize("RVUsers");
         }
     }
 }

@@ -1,0 +1,11 @@
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SecurityManager\bin\Debug\SecurityManager.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SecurityManager\bin\Debug\SecurityManager.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SecurityManager\obj\Debug\SecurityManager.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SecurityManager\obj\Debug\SecurityManager.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SecurityManager\obj\Debug\SecurityManager.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\bin\Debug\SecurityManager.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\bin\Debug\SecurityManager.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\obj\Debug\SecurityManager.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\obj\Debug\SecurityManager.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\obj\Debug\SecurityManager.AuditEventsFile.resources
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SecurityManager\obj\Debug\SecurityManager.csproj.GenerateResource.Cache

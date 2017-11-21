@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SyslogServer.PubSubCode
 {
-    public enum Events { UserLevelMessages = 1, SecurityAuthorizationMessages, MessagesGeneratedBySyslog, LogAudit, LogAlert};
-    public enum Severities { Emergency, Alert, Critical, Error, Warning, Notice, Information, Debug};
-    public class WCFService : PublishingService, IWCFContract 
+    public enum Events { UserLevelMessages = 1, SecurityAuthorizationMessages, MessagesGeneratedBySyslog, LogAudit, LogAlert };
+    public enum Severities { Emergency, Alert, Critical, Error, Warning, Notice, Information, Debug };
+    public class WCFService : PublishingService, IWCFContract
     {
         public static List<string> listOfEvents = new List<string>();
 
@@ -22,7 +22,7 @@ namespace SyslogServer.PubSubCode
             //upis u syslog formatu...
             //dobili smo broj za event i poruku/tekst poruke
 
-            string  eventData = null;
+            string eventData = null;
             eventData = message[0].ToString();
             int eventD = Int32.Parse(eventData);
             string text = message.Substring(1);
@@ -35,7 +35,7 @@ namespace SyslogServer.PubSubCode
 
             string syslogMessage = DateTime.Now.ToString() + "-" + identity.Name + "-" + eventMess + "-" + severity + "-" + messNum.ToString() + "-" + text;
 
-           // listOfEvents.Add(syslogMessage); //dodajem dogadjaj na listu dogadjaja
+            // listOfEvents.Add(syslogMessage); //dodajem dogadjaj na listu dogadjaja
             SyslogFormat.WriteInFile(syslogMessage);
             Publish(syslogMessage, eventMess); //publishujem dogadjaj
 

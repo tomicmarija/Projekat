@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PubSubCode\NewIssueAvailableEventArgs.cs" />
     <Compile Include="PubSubCode\PublishingService.cs" />
     <Compile Include="PubSubCode\PubSubFilter.cs" />
     <Compile Include="PubSubCode\Subscription.cs" />
@@ -57,6 +58,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\New folder\Projekat\SecurityManager\SecurityManager.csproj">
+      <Project>{7ad9ab18-3bc1-4f44-a228-200c8ce7223f}</Project>
+      <Name>SecurityManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Projekat\CMS\CMS.csproj">
       <Project>{645939c3-00d3-486f-9bfc-4f9d562bca32}</Project>
       <Name>CMS</Name>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SyslogServer.PubSubCode
 {
-    public class SyslogFormat 
+    public class SyslogFormat
     {
         static string path = "Events.txt";
 
@@ -18,7 +18,7 @@ namespace SyslogServer.PubSubCode
         {
             string severityLevel = string.Empty;
 
-            switch(eventData)
+            switch (eventData)
             {
                 case 1:
                     severityLevel = "5"; //user level messages - notice
@@ -47,7 +47,7 @@ namespace SyslogServer.PubSubCode
         {
             string eventD = string.Empty;
 
-            switch(eventData)
+            switch (eventData)
             {
                 case 1:
                     eventD = Events.UserLevelMessages.ToString();
@@ -66,13 +66,13 @@ namespace SyslogServer.PubSubCode
                     break;
             }
 
-           return eventD;
+            return eventD;
         }
 
         public static List<string> GetAllEvents()
         {
             List<string> list = new List<string>();
-            foreach(string evenetD in WCFService.listOfEvents)
+            foreach (string evenetD in WCFService.listOfEvents)
             {
                 list.Add(evenetD);
             }
@@ -84,16 +84,16 @@ namespace SyslogServer.PubSubCode
         {
             try
             {
-                StreamWriter sw = new StreamWriter(path,true);
+                StreamWriter sw = new StreamWriter(path, true);
                 sw.WriteLine(message);
                 sw.Close();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("[WriteInFile] ERROR = {0}", e.Message);
             }
         }
-        
+
     }
 }

@@ -53,7 +53,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SyslogServer\CommonContracts\CommonContracts.csproj">
+    <ProjectReference Include="..\CommonContracts\CommonContracts.csproj">
       <Project>{b3e47a6e-a5e3-46a4-8a05-23b5fba20b8c}</Project>
       <Name>CommonContracts</Name>
     </ProjectReference>

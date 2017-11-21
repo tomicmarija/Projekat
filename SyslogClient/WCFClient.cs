@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using CMS;
+using System.ServiceModel.Security;
 
 namespace SyslogClient
 {
@@ -18,8 +19,8 @@ namespace SyslogClient
             : base(binding, address)
         {
             this.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.Custom;
-            this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new Validation();
-            this.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
+            this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new ClientValidation();
+            this.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;         
             this.Credentials.ClientCertificate.Certificate = certificate;
 
             factory = this.CreateChannel();

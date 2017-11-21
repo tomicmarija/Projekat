@@ -10,11 +10,9 @@ namespace Clients
         ISubscription _proxy;
         public Client(NetTcpBinding binding, EndpointAddress address)
         {
-            DuplexChannelFactory <ISubscription> channelFactory = new DuplexChannelFactory<ISubscription>(new InstanceContext(this), binding, address);
+            DuplexChannelFactory<ISubscription> channelFactory = new DuplexChannelFactory<ISubscription>(new InstanceContext(this), binding, address);
             _proxy = channelFactory.CreateChannel();
-
         }
-
 
         public List<string> AllEvents()
         {
@@ -23,45 +21,90 @@ namespace Clients
             try
             {
                 list = _proxy.AllEvents();
-                //Console.WriteLine("Klijent se pretplatio na dogadjaj: " + topicName);
-
             }
             catch (Exception e)
             {
                 Console.WriteLine("[AllEvents] ERROR = {0}", e.Message);
-
             }
             return list;
         }
 
+        public bool Delete(string topicName)
+        {
+            bool allowed = false;
+
+            try
+            {
+                allowed = _proxy.Delete(topicName);
+
+                if (!allowed)
+                {
+                    Console.WriteLine("You are not allowed for deleting events!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[Edit] ERROR = {0}", e.Message);
+            }
+
+            return allowed;
+        }
+
         public void Dispose()
         {
-            //throw new NotImplementedException();
+            if (_proxy != null)
+                _proxy = null;
+
+        }
+
+        public bool Edit(string topicName)
+        {
+            bool allowed = false;
+
+            try
+            {
+                allowed = _proxy.Edit(topicName);
+
+                if (!allowed)
+                {
+                    Console.WriteLine("You are not allowed for editing events!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[Edit] ERROR = {0}", e.Message);
+            }
+
+            return allowed;
         }
 
         public void Publish(string e, string topicName)
         {
-            if(e != string.Empty)
+            if (e != string.Empty)
             {
-                Console.WriteLine("New event: {0}", e);
+                Console.WriteLine("Event: {0}", e);
             }
         }
 
-
-          
-
-        public void Subscribe(string topicName)
+        public bool Subscribe(string topicName)
         {
+            bool allowed = false;
+
             try
             {
-                _proxy.Subscribe(topicName);
-                //Console.WriteLine("Klijent se pretplatio na dogadjaj: " + topicName);
+                allowed = _proxy.Subscribe(topicName);
 
+                if (!allowed)
+                {
+                    Console.WriteLine("You don't have permission for subscribing facility code for {0}!", topicName);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine("[Subscribe] ERROR = {0}", e.Message);
             }
+
+            return allowed;
         }
 
         public void UnSubscribe(string topicName)
@@ -69,7 +112,6 @@ namespace Clients
             try
             {
                 _proxy.UnSubscribe(topicName);
-
             }
             catch (Exception e)
             {

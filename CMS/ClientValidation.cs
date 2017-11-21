@@ -9,7 +9,7 @@ using static CMS.CertManager;
 
 namespace CMS
 {
-    public class Validation : X509CertificateValidator
+    public class ClientValidation : X509CertificateValidator
     {
         public override void Validate(X509Certificate2 certificate)
         {

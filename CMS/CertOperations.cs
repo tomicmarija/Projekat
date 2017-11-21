@@ -78,16 +78,27 @@ namespace CMS
 
 
 
-        public static X509Certificate2 GetCertificateFromFile(string fileName)
+        public static X509Certificate2 GetCertificateFromStorage(StoreName storeName, StoreLocation storeLocation, string user)
         {
-            X509Certificate2 certificate = null;
-            try
+            string userCn = String.Format("CN={0}", user);
+            X509Store store = new X509Store(storeName, storeLocation);
+            store.Open(OpenFlags.ReadOnly);
+            X509Certificate2 certificate = new X509Certificate2();
+            List<X509Certificate2> certCollection = new List<X509Certificate2>();
+            foreach(var cert in store.Certificates)
             {
-                certificate = new X509Certificate2(@"C:\Users\Administrator\Desktop\Projekat\CMSServer\bin\Debug\Sertifikati\"+fileName);
+                certCollection.Add(cert);
             }
-            catch (Exception e)
+
+            foreach(X509Certificate2 cert in certCollection)
             {
-                Console.WriteLine("Error while trying to GetCertificateFromFile {0}. ERROR = {1}", fileName, e.Message);
+                string[] names = cert.Subject.Split('_');
+
+                if (names[0] == userCn)
+                {
+                    certificate = cert;
+                    break;
+                }
             }
 
             return certificate;

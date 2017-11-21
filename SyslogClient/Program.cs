@@ -1,4 +1,5 @@
-﻿using CommonContracts;
+﻿using CMS;
+using CommonContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace SyslogClient
             if (mode == "1")
             {
                 NetTcpBinding bindingCert = new NetTcpBinding();
-                EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://localhost:9999/Receiver"));
+                EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://localhost:100/Receiver"));
 
                 certFactory = new ChannelFactory<ICertServices>(bindingCert, addressCert);
                 _certProxy = certFactory.CreateChannel();
@@ -49,7 +50,15 @@ namespace SyslogClient
                 NetTcpBinding binding = new NetTcpBinding();
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
-                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:2110/IWCFContract"), new X509CertificateEndpointIdentity(certificate));
+                string srvCertCN = "server";
+                X509Certificate2 certificateserv = CertOperations.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
+
+                EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:300/IWCFContract"), new X509CertificateEndpointIdentity(certificateserv));
+
+
+                srvCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name); ;
+                certificate = CertOperations.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, srvCertCN);
+
                 string eventData = "-1";
                 using (WCFClient proxy = new WCFClient(binding, address,certificate))
                 {

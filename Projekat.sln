@@ -11,9 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonContracts", "CommonCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clients", "Clients\Clients.csproj", "{3C4841C0-EB73-4E57-B3F6-2FD08A3BE1D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSServer", "..\Projekat\CMSServer\CMSServer.csproj", "{182CB538-2D9A-406D-A37E-D719E82671D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSServer", "CMSServer\CMSServer.csproj", "{182CB538-2D9A-406D-A37E-D719E82671D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS", "..\Projekat\CMS\CMS.csproj", "{645939C3-00D3-486F-9BFC-4F9D562BCA32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS", "CMS\CMS.csproj", "{645939C3-00D3-486F-9BFC-4F9D562BCA32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityManager", "..\New folder\Projekat\SecurityManager\SecurityManager.csproj", "{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{645939C3-00D3-486F-9BFC-4F9D562BCA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{645939C3-00D3-486F-9BFC-4F9D562BCA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{645939C3-00D3-486F-9BFC-4F9D562BCA32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD9AB18-3BC1-4F44-A228-200C8CE7223F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
