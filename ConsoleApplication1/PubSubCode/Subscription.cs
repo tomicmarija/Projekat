@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using System.ServiceModel;
@@ -89,8 +90,16 @@ namespace SyslogServer.PubSubCode
 
                 foreach (string _event in _historyEvents)
                 {
-                    _publishingService.Publish(_event, topicName);
+                    MethodInfo publishMethod = typeof(IPublishing).GetMethod("Publish");
+                    publishMethod.Invoke(subscriber, new object[] { _event, topicName });
                 }
+
+                Audit.AuthorizationSuccess(Formatter.ParseName(principal.Identity.Name), "Subscribe");
+            }
+            else
+            {
+                SecurityException ex = new SecurityException();
+                Audit.AuthorizationFailed(Formatter.ParseName(principal.Identity.Name), "Subscribe", ex.Message);
             }
 
             return allowed;              
@@ -111,9 +120,6 @@ namespace SyslogServer.PubSubCode
             if (principal.IsInRole(Permissions.Edit.ToString()))
             {
                 allowed = true;
-
-                    
-
                 mutex.WaitOne();
 
                 string[] allLines = File.ReadAllLines(path);
@@ -131,8 +137,13 @@ namespace SyslogServer.PubSubCode
                     }
 
                 mutex.ReleaseMutex();
-                
-                
+
+                Audit.AuthorizationSuccess(Formatter.ParseName(principal.Identity.Name), "Edit");
+            }
+            else
+            {
+                SecurityException ex = new SecurityException();
+                Audit.AuthorizationFailed(Formatter.ParseName(principal.Identity.Name), "Edit", ex.Message);
             }
 
             return allowed;
@@ -162,9 +173,14 @@ namespace SyslogServer.PubSubCode
                         }
                     }                
                 }
-
-
                 mutex.ReleaseMutex();
+
+                Audit.AuthorizationSuccess(Formatter.ParseName(principal.Identity.Name), "Delete");
+            }
+            else
+            {
+                SecurityException ex = new SecurityException();
+                Audit.AuthorizationFailed(Formatter.ParseName(principal.Identity.Name), "Delete", ex.Message);
             }
 
             return allowed;

@@ -48,7 +48,7 @@ namespace SyslogServer
             _subscribeServiceHost.Description.Behaviors.Remove(typeof(ServiceDebugBehavior));
             _subscribeServiceHost.Description.Behaviors.Add(new ServiceDebugBehavior() { IncludeExceptionDetailInFaults = true });
 
-            string _publishAddress = "net.tcp://localhost:2112/IPublishing";
+            string _publishAddress = "net.tcp://localhost:2115/IPublishing";
             ServiceHost _publishServiceHost = new ServiceHost(typeof(PubSubCode.PublishingService));
             _publishServiceHost.AddServiceEndpoint(typeof(IPublishing), binding, _publishAddress);
 

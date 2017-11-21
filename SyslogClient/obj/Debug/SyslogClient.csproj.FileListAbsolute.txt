@@ -14,3 +14,11 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SyslogClient\bin\
 C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SyslogClient\obj\Debug\SyslogClient.csprojResolveAssemblyReference.cache
 C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SyslogClient\obj\Debug\SyslogClient.exe
 C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\SyslogClient\obj\Debug\SyslogClient.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\bin\Debug\SyslogClient.exe.config
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\bin\Debug\SyslogClient.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\bin\Debug\SyslogClient.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\obj\Debug\SyslogClient.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\obj\Debug\SyslogClient.exe
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogClient\obj\Debug\SyslogClient.pdb

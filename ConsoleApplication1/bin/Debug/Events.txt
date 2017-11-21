@@ -22,7 +22,7 @@
 19.11.2017. 15.43.52-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-nova poruka
 19.11.2017. 15.43.56-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-najnovina
 19.11.2017. 15.44.59-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-treca poruka
-19.11.2017. 15.45.02-PC-1\Nebojsa Kanjeric-LogAlert-1-1-nema
+19.11.2017. 15.45.02-PC-1\Nebojsa Kanjeric-LogAlert-1-1-nema_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited
 19.11.2017. 15.45.06-PC-1\Nebojsa Kanjeric-SecurityAuthorizationMessages-6-1-eeeee
 11/20/2017 8:52:28 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-novo za 3
 11/20/2017 8:52:37 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-2
@@ -33,4 +33,5 @@
 11/20/2017 8:54:31 AM-P04-17\Administrator-SecurityAuthorizationMessages-6-1-za 22222
 11/20/2017 8:54:36 AM-P04-17\Administrator-MessagesGeneratedBySyslog-5-1-za 333333
 11/20/2017 8:54:40 AM-P04-17\Administrator-LogAudit-6-1-eeeee
-11/20/2017 10:30:20 AM-P04-17\Administrator-LogAlert-1-1-aaaaaa
+11/20/2017 10:30:20 AM-P04-17\Administrator-LogAlert-1-1-aaaaaa_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited
+11/21/2017 8:37:29 AM-P04-17\Administrator-LogAlert-1-1-nova poruka_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited_edited

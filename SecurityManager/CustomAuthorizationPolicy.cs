@@ -64,6 +64,7 @@ namespace SecurityManager
                 if (windowsIdentity != null)
                 {					
                     principal = new CustomPrincipal(windowsIdentity);
+                    Audit.AuthenticationSuccess(Formatter.ParseName(windowsIdentity.Name));
                 }
 
                 return principal;
