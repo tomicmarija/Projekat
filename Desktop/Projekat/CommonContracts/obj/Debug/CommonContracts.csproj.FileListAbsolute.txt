@@ -1,0 +1,17 @@
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\SyslogServer\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\novo\SyslogServer\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\SyslogServer\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\SyslogServer\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\SyslogServer\CommonContracts\obj\Debug\CommonContracts.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\SyslogServer\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\SyslogServer\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\obj\Debug\CommonContracts.pdb
