@@ -38,11 +38,11 @@ namespace CMSServer
             }
 
 
-
-            //   Console.ReadKey();
+          
+         //   Console.ReadKey();
             //pamecenje korisnika koji imaju sertifikate
-            CertOperations.Serialize("Users");
-            CertOperations.Serialize("RVUsers");
+          CertOperations.Serialize("Users");
+            CertOperations.Serialize("RVUsers");            
         }
     }
 }

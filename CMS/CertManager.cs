@@ -15,7 +15,7 @@ namespace CMS
 {
     public class CertManager
     {
-
+      
         private static string directoryName = null;
         private static string RVdirectoryName = null;
         private static string issuer = "TestCA";
@@ -178,7 +178,7 @@ namespace CMS
 
         public static void CompromisedCert(string user)
         {
-
+          
             if (!(certificates.Find(item => item.name == user).Equals(default(Certificate))))
             {
 
@@ -218,6 +218,6 @@ namespace CMS
         }
 
 
-
+        
     }
 }

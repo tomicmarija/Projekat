@@ -26,8 +26,5 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.dll
 C:\Users\Administrator.DOMAINADMINS0\Desktop\ivona\CMS\obj\Debug\CMS.pdb
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\obj\Debug\CMS.AuditEventsFile.resources
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CMS\obj\Debug\CMS.csproj.GenerateResource.Cache
-<<<<<<< HEAD
-=======
 C:\Users\Administrator\Desktop\Projekat\CMS\bin\Debug\CommonContracts.dll
 C:\Users\Administrator\Desktop\Projekat\CMS\bin\Debug\CommonContracts.pdb
->>>>>>> 5238b4c097df7b91172ff3f987663e752583ccc2
