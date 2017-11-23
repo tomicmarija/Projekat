@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Formatter.cs" />
     <Compile Include="ICertServices.cs" />
-    <Compile Include="IClient.cs" />
     <Compile Include="IPublishing.cs" />
     <Compile Include="ISubscription.cs" />
     <Compile Include="IWCFContract.cs" />

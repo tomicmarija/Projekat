@@ -12,6 +12,6 @@ namespace CommonContracts
     {
 
         [OperationContract]
-        void SendMessage(string message);
+        bool SendMessage(string message, string user);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SecurityManager
@@ -50,7 +51,6 @@ namespace SecurityManager
         {
             if (customLog != null)
             {
-
                 string msg = string.Format(AuditEventsFile.UserAuthorizationSuccess, userName, serviceName);
                 customLog.WriteEntry(msg);
             }

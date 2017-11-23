@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonContracts;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -217,7 +218,37 @@ namespace CMS
             }
         }
 
+    
 
-        
+        public static  bool Validate(X509Certificate2 certificate)
+        {
+            if (!certificate.Issuer.Equals("CN=" + CertManager.Issuer))
+            {
+                Audit.ValidationFailed("Issuer is not familiar");
+              
+                return false;
+            }
+
+            foreach (Certificate cert in CertManager.RevList)
+            {
+                if (certificate.Thumbprint == cert.cert.Thumbprint)
+                {
+                    Audit.ValidationFailed("Certificate is compromised");
+                  
+                    return false;
+                }
+            }
+
+            DateTime d = Convert.ToDateTime(certificate.GetExpirationDateString());
+            if (d < DateTime.Now)
+            {
+                Audit.ValidationFailed("Certificate has expired");
+              
+                return false;
+            }
+
+            Audit.ValidationSuccess();
+            return true;
+        }
     }
 }

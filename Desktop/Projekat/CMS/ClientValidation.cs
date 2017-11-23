@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.IdentityModel.Selectors;
 using System.Security.Cryptography.X509Certificates;
 using static CMS.CertManager;
+using System.ServiceModel;
+using CommonContracts;
+using System.Security;
 
 namespace CMS
 {
@@ -13,30 +16,22 @@ namespace CMS
     {
         public override void Validate(X509Certificate2 certificate)
         {
-            if (!certificate.Issuer.Equals("CN="+CertManager.Issuer))
-            {
-                Audit.ValidationFailed("Issuer is not familiar");
-                throw new Exception("Certificate is not valid");
-            }
+            ChannelFactory<ICertServices> certFactory;
+            ICertServices _certProxy;
+            NetTcpBinding bindingCert = new NetTcpBinding();
+            EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://10.1.212.183:100/Receiver"));
 
-            foreach(Certificate cert in CertManager.RevList)
+            certFactory = new ChannelFactory<ICertServices>(bindingCert, addressCert);
+            _certProxy = certFactory.CreateChannel();
+            
+            if(! _certProxy.Validate(certificate))
             {
-                if(certificate.Thumbprint==cert.cert.Thumbprint)
-                {
-                    Audit.ValidationFailed("Certificate is compromised");
-                    throw new Exception("Certificate is not valid");
-                }
+                throw new SecurityException("Certificate is not valid.");
             }
+         
+            
 
-            DateTime d = Convert.ToDateTime(certificate.GetExpirationDateString());
-            if(d<DateTime.Now)
-            {
-                Audit.ValidationFailed("Certificate has expired");
-                throw new Exception("Certificate has expired");
-            }
-
-            Audit.ValidationSuccess();
-        
+   
         }
     }
 }

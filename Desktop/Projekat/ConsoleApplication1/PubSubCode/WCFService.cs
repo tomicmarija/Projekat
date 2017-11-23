@@ -17,7 +17,7 @@ namespace SyslogServer.PubSubCode
         public static List<string> listOfEvents = new List<string>();
 
         int messNum = 0;
-        public void SendMessage(string message)
+        public bool SendMessage(string message, string user)
         {
             //upis u syslog formatu...
             //dobili smo broj za event i poruku/tekst poruke
@@ -27,13 +27,12 @@ namespace SyslogServer.PubSubCode
             int eventD = Int32.Parse(eventData);
             string text = message.Substring(1);
             messNum++;
-            //preuzimam host name preko windowsIdentity
-            WindowsIdentity identity = (WindowsIdentity)Thread.CurrentPrincipal.Identity;
+
 
             string eventMess = SyslogFormat.GetEvent(eventD);
             string severity = SyslogFormat.GetSeverityLevel(eventD);
 
-            string syslogMessage = DateTime.Now.ToString() + "-" + identity.Name + "-" + eventMess + "-" + severity + "-" + messNum.ToString() + "-" + text;
+            string syslogMessage = DateTime.Now.ToString() + "-" + user + "-" + eventMess + "-" + severity + "-" + messNum.ToString() + "-" + text;
 
             // listOfEvents.Add(syslogMessage); //dodajem dogadjaj na listu dogadjaja
             SyslogFormat.WriteInFile(syslogMessage);
@@ -41,6 +40,7 @@ namespace SyslogServer.PubSubCode
 
             Console.WriteLine(syslogMessage);
 
+            return true;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.IdentityModel.Selectors;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,31 +15,19 @@ namespace CMS
     {
         public override void Validate(X509Certificate2 certificate)
         {
-            X509Certificate2 srvCert = CertOperations.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, Formatter.ParseName(WindowsIdentity.GetCurrent().Name));
+            ChannelFactory<ICertServices> certFactory;
+            ICertServices _certProxy;
+            NetTcpBinding bindingCert = new NetTcpBinding();
+            EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://10.1.212.183:100/Receiver"));
 
-            if (!certificate.Issuer.Equals(srvCert.Issuer))
+            certFactory = new ChannelFactory<ICertServices>(bindingCert, addressCert);
+            _certProxy = certFactory.CreateChannel();
+
+            if (!_certProxy.Validate(certificate))
             {
-                Audit.ValidationFailed("Certificate is not from the valid issuer.");
-                throw new Exception("Certificate is not from the valid issuer.");
+                Console.WriteLine("Clients certificate compromised!");
+                throw new Exception("Certificate is not valid.");
             }
-
-            foreach (Certificate cert in CertManager.RevList)
-            {
-                if (certificate.Thumbprint == cert.cert.Thumbprint)
-                {
-                    Audit.ValidationFailed("Certificate is compromised");
-                    throw new Exception("Certificate is not valid");
-                }
-            }
-
-            DateTime d = Convert.ToDateTime(certificate.GetExpirationDateString());
-            if (d < DateTime.Now)
-            {
-                Audit.ValidationFailed("Certificate has expired");
-                throw new Exception("Certificate has expired");
-            }
-
-            Audit.ValidationSuccess();
         }
     }
 }

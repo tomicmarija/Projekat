@@ -15,3 +15,17 @@ C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\bin\Debug\
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\bin\Debug\CommonContracts.pdb
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\obj\Debug\CommonContracts.dll
 C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.csprojResolveAssemblyReference.cache
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\Administrator.DOMAINADMINS0\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\server\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.dll
+C:\Users\server\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\bin\Debug\CommonContracts.pdb
+C:\Users\server\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.dll
+C:\Users\server\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.pdb
+C:\Users\server\Desktop\Projekat-iv-branch\Projekat-iv-branch\CommonContracts\obj\Debug\CommonContracts.csprojResolveAssemblyReference.cache

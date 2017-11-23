@@ -16,5 +16,8 @@ namespace CommonContracts
 
         [OperationContract]
         void CompromisedCert(string user);
+
+        [OperationContract]
+       bool Validate(X509Certificate2 certificate);
     }
 }

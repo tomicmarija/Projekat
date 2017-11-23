@@ -11,7 +11,7 @@ using System.ServiceModel.Security;
 
 namespace SyslogClient
 {
-    public class WCFClient : ChannelFactory<IWCFContract>, IWCFContract
+    public class WCFClient : ChannelFactory<IWCFContract>, IWCFContract, IDisposable
     {
         IWCFContract factory;
 
@@ -22,20 +22,22 @@ namespace SyslogClient
             this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new ClientValidation();
             this.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;         
             this.Credentials.ClientCertificate.Certificate = certificate;
-
-            factory = this.CreateChannel();
             
+            factory = this.CreateChannel();
         }
-        public void SendMessage(string message)
+        public bool SendMessage(string message, string user)
         {
             try
             {
-                factory.SendMessage(message);
+                factory.SendMessage(message, user);
 
             }catch(Exception e)
             {
-                Console.WriteLine("[SendMessage] ERROR = {0}", e.Message);
+                Console.WriteLine(e.Message);
+                return false;
             }
+
+            return true;
         }
     }
 }

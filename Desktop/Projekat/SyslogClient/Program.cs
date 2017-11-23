@@ -24,7 +24,8 @@ namespace SyslogClient
 
             Console.WriteLine("Choose mode:");
             Console.WriteLine("1. Create certificate");
-            Console.WriteLine("2. Establish connetion to server");
+            Console.WriteLine("2. Compromised certificate");
+            Console.WriteLine("3. Establish connetion to server");
             string mode = Console.ReadLine();
 
 
@@ -45,8 +46,13 @@ namespace SyslogClient
                 certificate = _certProxy.CreateCertificate(nameStr);
 
             }
-            else
+            else if(mode == "3")
             {
+                IdentityReference identity = WindowsIdentity.GetCurrent().User;
+                SecurityIdentifier sid = (SecurityIdentifier)identity.Translate(typeof(SecurityIdentifier));
+                var name = sid.Translate(typeof(NTAccount));
+                string nameStr = name.ToString();
+
                 NetTcpBinding binding = new NetTcpBinding();
                 binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
 
@@ -60,11 +66,12 @@ namespace SyslogClient
                 certificate = CertOperations.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, srvCertCN);
 
                 string eventData = "-1";
+                int evNo = -1;
                 using (WCFClient proxy = new WCFClient(binding, address,certificate))
                 {
                     while (true)
-                    {
-
+                    {                      
+                                        
                         while (Int32.Parse(eventData) < 1 || Int32.Parse(eventData) > 5)
                         {
                             Console.WriteLine("Make new event: ");
@@ -75,16 +82,44 @@ namespace SyslogClient
                             Console.WriteLine("5. Log alert");
 
                             eventData = Console.ReadLine();
+
+                            if (!Int32.TryParse(eventData, out evNo))
+                            {
+                                eventData = "-1";
+                                Console.WriteLine("Wrong choice! Try again..");
+                            }
                         }
 
-
                         Console.WriteLine("Enter message: ");
-                        string messText = Console.ReadLine();
+                        string messText = Console.ReadLine();                       
 
-                        proxy.SendMessage(eventData + messText);
+                        if(!proxy.SendMessage(eventData + messText, nameStr))
+                        {
+                            Console.WriteLine("Certificate is not valid! Closing client application...");
+                            Console.ReadKey();
+                            proxy.Abort();
+                            return;
+                        }
+
                         eventData = "-1";
                     }
                 }
+            }
+            else
+            {
+                NetTcpBinding bindingCert = new NetTcpBinding();
+                EndpointAddress addressCert = new EndpointAddress(new Uri("net.tcp://localhost:100/Receiver"));
+
+                certFactory = new ChannelFactory<ICertServices>(bindingCert, addressCert);
+                _certProxy = certFactory.CreateChannel();
+
+                IdentityReference identity = WindowsIdentity.GetCurrent().User;
+                SecurityIdentifier sid = (SecurityIdentifier)identity.Translate(typeof(SecurityIdentifier));
+                var name = sid.Translate(typeof(NTAccount));
+                string nameStr = name.ToString();
+                nameStr = nameStr.Substring(nameStr.IndexOf('\\') + 1);
+
+                _certProxy.CompromisedCert(nameStr);
             }
 
         }
